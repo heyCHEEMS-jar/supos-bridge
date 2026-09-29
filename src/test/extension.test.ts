@@ -8,11 +8,14 @@ describe('utils/file', () => {
   const name = 'index.d.ts'
   const content = new TextEncoder().encode('declare const scriptUtil: any')
 
-  beforeEach(async () => {
+  const cleanup = async () => {
     try {
       await vscode.workspace.fs.delete(dir, { recursive: true, useTrash: false })
     } catch {}
-  })
+  }
+
+  beforeEach(cleanup)
+  after(cleanup)
 
   it('目录不存在时新建再写入', async () => {
     assert.strictEqual(await writeIfChanged(dir, name, content), true)
