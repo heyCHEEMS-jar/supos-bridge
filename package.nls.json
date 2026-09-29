@@ -1,5 +1,4 @@
 {
     "command.generateTypes.title": "Generate Types",
-    "command.restart.title": "Restart",
-    "config.typesDir.description": "Directory to write the generated supos.d.ts into, relative to the workspace folder. Empty means the workspace root."
+    "command.restart.title": "Restart"
 }

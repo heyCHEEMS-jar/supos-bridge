@@ -65,7 +65,7 @@ const renderInterface = (apis) => {
   return apis
     .map(
       (a) => `
-    /** ${a.brief}${a.params?.length && '\n'}${(a.params ?? []).map((p) => `     * @param ${p.name} ${p.desc ?? ''}`).join('\n')}
+    /** ${a.brief}${a.params?.length ? '\n' : ''}${(a.params ?? []).map((p) => `     * @param ${p.name} ${p.desc ?? ''}`).join('\n')}
      * @example\n${a.example
        .replace(/\*\//, '*\\/')
        .split('\n')

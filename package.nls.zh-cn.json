@@ -1,5 +1,4 @@
 {
     "command.generateTypes.title": "生成类型声明 (supos.d.ts)",
-    "command.restart.title": "重启扩展",
-    "config.typesDir.description": "生成的 supos.d.ts 存放目录，相对于工作区文件夹；留空表示放在工作区根目录。"
+    "command.restart.title": "重启扩展"
 }
