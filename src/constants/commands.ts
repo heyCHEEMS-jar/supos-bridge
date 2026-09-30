@@ -1,4 +1,4 @@
 export const commands = {
-  GENERATE_TYPES: 'supos-snippets.generateTypes',
-  RESTART: 'supos-snippets.restart'
+  GENERATE_TYPES: 'supos-bridge.generateTypes',
+  RESTART: 'supos-bridge.restart'
 }
