@@ -8,6 +8,10 @@ supOS 可编程组件 `scriptUtil` / `$os` API 的代码片段、补全提示与
 
 ---
 
+## 更新日志
+
+详见 [CHANGELOG.md](./CHANGELOG.md)
+
 ## 安装
 
 在 VS Code 扩展面板搜索 `SupOS Bridge` 安装。
