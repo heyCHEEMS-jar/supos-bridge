@@ -1,0 +1,16 @@
+{
+  "Please configure {0} first": "请先配置 {0}",
+  "HTTP {0}": "HTTP {0}",
+  "No valid ticket was returned": "未返回有效 ticket",
+  "Could not start Chrome or Edge: {0}": "无法启动 Chrome 或 Edge：{0}",
+  "Complete login in the opened browser": "请在打开的浏览器中完成登录",
+  "Browser login was cancelled or timed out": "浏览器登录已取消或超时",
+  "SupOS login failed: {0}": "SupOS 登录失败：{0}",
+  "SupOS login succeeded": "SupOS 登录成功",
+  "Failed to write {0}: {1}": "{0} 写入失败：{1}",
+  "Wrote {0}": "已写入 {0}",
+  "Type hints are up to date": "类型提示已是最新",
+  "Type hints reloaded": "已重新加载类型提示",
+  "Please open a folder first": "请先打开一个文件夹",
+  "Request failed: HTTP {0}": "请求失败：HTTP {0}"
+}

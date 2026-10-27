@@ -16,7 +16,9 @@ export const generateAll = async (ctx: vscode.ExtensionContext, folders: readonl
     for (const folder of folders) if (await generateTypes(ctx, folder)) wrote = true
     return wrote
   } catch (e) {
-    vscode.window.showErrorMessage(`写入 ${filePaths.TYPES_DIR}/${filePaths.TYPES_ENTRY} 失败：${e}`)
+    const path = `${filePaths.TYPES_DIR}/${filePaths.TYPES_ENTRY}`
+    const message = e instanceof Error ? e.message : String(e)
+    vscode.window.showErrorMessage(vscode.l10n.t('Failed to write {0}: {1}', path, message))
     return null
   }
 }
@@ -29,5 +31,8 @@ export const registerGenerateTypes = (ctx: vscode.ExtensionContext) =>
     const wrote = await generateAll(ctx, folders)
     if (wrote === null) return
     if (wrote) await vscode.commands.executeCommand('typescript.restartTsServer')
-    vscode.window.showInformationMessage(wrote ? `已写入 ${filePaths.TYPES_DIR}/${filePaths.TYPES_ENTRY}` : '类型声明已是最新')
+    const message = wrote
+      ? vscode.l10n.t('Wrote {0}', `${filePaths.TYPES_DIR}/${filePaths.TYPES_ENTRY}`)
+      : vscode.l10n.t('Type hints are up to date')
+    vscode.window.showInformationMessage(message)
   })
