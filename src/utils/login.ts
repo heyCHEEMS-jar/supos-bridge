@@ -1,42 +1,69 @@
 import * as vscode from 'vscode'
-import { chromium } from 'playwright-core'
+import { chromium, type Browser } from 'playwright-core'
 
 export const login = async (ctx: vscode.ExtensionContext) => {
   const config = vscode.workspace.getConfiguration()
-  const baseURL = config.get<string>('baseURL', '').trim().replace(/\/+$/, '')
-  const loginAPIPath = config.get<string>('loginAPIPath', '/inter-api/auth/login').trim() || '/inter-api/auth/login'
-  if (!baseURL) throw new Error(vscode.l10n.t('Please configure {0} first', 'baseURL'))
-
-  const browser = await chromium
-    .launch({ channel: 'chrome', headless: false })
-    .catch(() => chromium.launch({ channel: 'msedge', headless: false }))
-    .catch((e) => {
-      const message = e instanceof Error ? e.message : String(e)
-      throw new Error(vscode.l10n.t('Could not start Chrome or Edge: {0}', message))
-    })
-  try {
-    const page = await browser.newPage()
-    const responsePromise = page.waitForResponse(
-      (res) => res.request().method() === 'POST' && new URL(res.url()).pathname.endsWith(loginAPIPath),
-      { timeout: 300000 }
-    )
-
-    await page.goto(`${baseURL}/login`)
-    vscode.window.showInformationMessage(vscode.l10n.t('Complete login in the opened browser'))
-
-    const response = await responsePromise.catch(() => {
-      throw new Error(vscode.l10n.t('Browser login was cancelled or timed out'))
-    })
-    const result = (await response.json()) as { ticket?: unknown }
-    if (typeof result.ticket !== 'string' || !result.ticket) {
-      throw new Error(vscode.l10n.t('No valid ticket was returned'))
-    }
-
-    await ctx.secrets.store('ticket', result.ticket)
-    return result.ticket
-  } finally {
-    await browser.close()
+  let baseURL = config.get<string>('baseURL', '').trim().replace(/\/+$/, '')
+  const pagePath = config.get<string>('loginPagePath', '/login').trim()
+  const apiPath = config.get<string>('loginAPIPath', '/').trim()
+  if (!baseURL) {
+    baseURL =
+      (await vscode.window.showInputBox({
+        ignoreFocusOut: true,
+        placeHolder: vscode.l10n.t(vscode.l10n.t('Please configure {0} first', 'baseURL'))
+      })) || ''
   }
+
+  if (baseURL) {
+    config.update('baseURL', baseURL)
+  } else {
+    throw new Error(vscode.l10n.t('Please configure {0} first', 'baseURL'))
+  }
+
+  return vscode.window.withProgress(
+    {
+      location: vscode.ProgressLocation.Notification,
+      title: vscode.l10n.t('Complete login in the opened browser'),
+      cancellable: true
+    },
+    async (_progress, token) => {
+      let browser: Browser | undefined
+      let cancellation: vscode.Disposable | undefined
+      try {
+        if (token.isCancellationRequested) throw new vscode.CancellationError()
+        browser = await chromium
+          .launch({ channel: 'chrome', headless: false })
+          .catch(() => chromium.launch({ channel: 'msedge', headless: false }))
+          .catch((e) => {
+            throw new Error(vscode.l10n.t('Could not start Chrome or Edge: {0}', e instanceof Error ? e.message : String(e)))
+          })
+        cancellation = token.onCancellationRequested(() => void browser?.close().catch(() => {}))
+        if (token.isCancellationRequested) throw new vscode.CancellationError()
+
+        const page = await browser.newPage({ ignoreHTTPSErrors: true })
+        const responsePromise = page.waitForResponse(
+          async (res) => {
+            if (res.request().method() !== 'POST' || !new URL(res.url()).pathname.endsWith(apiPath) || !res.ok()) return false
+            const result: { ticket?: unknown } | null = await res.json().catch(() => null)
+            return typeof result?.ticket === 'string' && !!result.ticket.trim()
+          },
+          { timeout: 0 }
+        )
+
+        const [res] = await Promise.all([responsePromise, page.goto(`${baseURL}${pagePath}`)])
+        const { ticket } = (await res.json()) as { ticket: string }
+        if (token.isCancellationRequested) throw new vscode.CancellationError()
+        await ctx.secrets.store('ticket', ticket)
+        return ticket
+      } catch (e) {
+        if (token.isCancellationRequested || (browser && !browser.isConnected())) throw new vscode.CancellationError()
+        throw e
+      } finally {
+        cancellation?.dispose()
+        await browser?.close()
+      }
+    }
+  )
 }
 
 export const ensureLogin = async (ctx: vscode.ExtensionContext) => (await ctx.secrets.get('ticket')) ?? login(ctx)

@@ -225,9 +225,7 @@
           "desc": "1 自动提交 / 0 手动提交"
         }
       ],
-      "note": [
-        "只有设置页面的联动方式为自动时，tag=1 自动提交才会生效"
-      ],
+      "note": ["只有设置页面的联动方式为自动时，tag=1 自动提交才会生效"],
       "example": "const component = scriptUtil.getRegisterReactDom('ctrlId');\nscriptUtil.submitDefaultValue(component, '查询的值', 1);"
     },
     {
@@ -247,9 +245,7 @@
           "desc": "点击确定时触发"
         }
       ],
-      "note": [
-        "只有点击确定的时候才会触发回调"
-      ],
+      "note": ["只有点击确定的时候才会触发回调"],
       "example": "scriptUtil.Alert('弹出成功', () => {\n  console.log('点击确定');\n});"
     },
     {
@@ -532,10 +528,7 @@
           "desc": "窗口配置，JSON 字符串"
         }
       ],
-      "note": [
-        "只有设置 feature 为 true 时 openConfig 才会生效",
-        "openConfig 是一个 JSON 字符串"
-      ],
+      "note": ["只有设置 feature 为 true 时 openConfig 才会生效", "openConfig 是一个 JSON 字符串"],
       "example": "// 空页面\nscriptUtil.openPage('url', '_blank');\n\n// 替换当前页面\nscriptUtil.openPage('url', '_self');\n\n// 宽高配置的空页面\nscriptUtil.openPage('url', '_blank', true, '{\"height\":400,\"width\":400}');"
     },
     {
@@ -577,9 +570,7 @@
     {
       "name": "closeParentModal",
       "brief": "关闭父页面的模态窗口",
-      "note": [
-        "window.parent.scriptUtil 能获取到父页面的 scriptUtil 实例"
-      ],
+      "note": ["window.parent.scriptUtil 能获取到父页面的 scriptUtil 实例"],
       "example": "window.parent.scriptUtil.closeModal();"
     },
     {
@@ -663,9 +654,7 @@
           "desc": "回调函数，接受一个 result 参数"
         }
       ],
-      "note": [
-        "只能根据 id 删除"
-      ],
+      "note": ["只能根据 id 删除"],
       "example": "const param = {\n  id: 'xxx' // 只能根据 id 删除\n};\nscriptUtil.delDataTable(\n  {\n    dataSource: 'namespace.tableName',\n    properties: [param], // 一定要是 Array 格式\n    version: 'V2'\n  },\n  function (res) {\n    console.log('res', res);\n  }\n);"
     },
     {
@@ -711,9 +700,7 @@
           "desc": "回调函数，接受一个 result 参数"
         }
       ],
-      "note": [
-        "keys 参数：必须带命名空间"
-      ],
+      "note": ["keys 参数：必须带命名空间"],
       "example": "// 修改条件：code 字段为 1623219467408\n// 修改结果：comDetailAdd（公司详细地址）为浙江省宁波市\nvar dataSource = 'supyoung_companyreg.company_reg';\nvar param = {\n  comDetailAdd: '浙江省宁波市' // 需要修改的字段\n};\nvar keys = {\n  'supyoung_companyreg.code': '1623219467408' // key 必须带命名空间\n};\nscriptUtil.updateDataTable(\n  {\n    dataSource,\n    properties: [param], // 一定要是 Array 格式\n    keys,\n    version: 'V2'\n  },\n  function (res) {\n    console.log('res', res);\n  }\n);"
     },
     {
@@ -819,9 +806,7 @@
           ]
         }
       ],
-      "note": [
-        "callSqlFunction 在业务设计器 v2.00.02.00-C 以上版本提供"
-      ],
+      "note": ["callSqlFunction 在业务设计器 v2.00.02.00-C 以上版本提供"],
       "example": "// 执行 sql 方法\nscriptUtil.callSqlFunction({\n  name: 'sqlName',\n  params: {\n    page: 1, // 分页参数：页码\n    per_page: 5 // 分页参数：每页数量\n    // 等其他 sql 需要的入参\n  },\n  enableTotal: false // true 支持查询分页\n}).then(function (res) {\n  console.log('then:res');\n});"
     },
     {
@@ -962,9 +947,7 @@
           "desc": "额外数据，用于插入附加的数据，默认为 {}"
         }
       ],
-      "note": [
-        "自动获取模板所有字段，并取同名页面组件的值一并存入"
-      ],
+      "note": ["自动获取模板所有字段，并取同名页面组件的值一并存入"],
       "example": "// additionalData { code: 123, name: '张三' }，和页面表单组件值一起，存入到表单模板里面\n$os.dataSave(template, additionalData).then((res) => {\n  console.log(res);\n});"
     },
     {

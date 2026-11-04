@@ -7,14 +7,17 @@ interface RequestOptions {
   timeout?: number
   headers?: Headers
   body?: any
+  autoLogin?: boolean
 }
+
+export class TicketExpiredError extends Error {}
 
 const ctrls = new Set<AbortController>()
 
 export const request = async (ctx: vscode.ExtensionContext, options: RequestOptions) => {
-  const { url, method = 'GET', timeout = 15000, body } = options
+  const { url, method = 'GET', timeout = 15000, body = null, autoLogin = true } = options
   const headers = new Headers(options.headers)
-  const json = body !== null && typeof body === 'object' && (Array.isArray(body) || Object.getPrototypeOf(body) === Object.prototype)
+  const json = body !== null && (Object.getPrototypeOf(body) === Object.prototype || Array.isArray(body)) // 排除Date/RegExp等
   if (json && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json')
 
   const ctrl = new AbortController()
@@ -32,11 +35,15 @@ export const request = async (ctx: vscode.ExtensionContext, options: RequestOpti
   try {
     let ticket = await ctx.secrets.get('ticket')
     const loggedIn = !ticket
-    if (!ticket) ticket = await login(ctx)
+    if (!ticket) {
+      if (!autoLogin) throw new TicketExpiredError()
+      ticket = await login(ctx)
+    }
 
     let res = await send(ticket)
     if (res.status === 401) {
       await ctx.secrets.delete('ticket')
+      if (!autoLogin) throw new TicketExpiredError()
       if (!loggedIn) {
         ticket = await login(ctx)
         res = await send(ticket)

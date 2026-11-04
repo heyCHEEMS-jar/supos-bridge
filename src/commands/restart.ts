@@ -10,6 +10,7 @@ export const registerRestart = (ctx: vscode.ExtensionContext) =>
     try {
       await ensureLogin(ctx)
     } catch (e) {
+      if (e instanceof vscode.CancellationError) return
       const message = e instanceof Error ? e.message : String(e)
       vscode.window.showErrorMessage(vscode.l10n.t('SupOS login failed: {0}', message))
       return

@@ -12,5 +12,11 @@
   "Type hints are up to date": "类型提示已是最新",
   "Type hints reloaded": "已重新加载类型提示",
   "Please open a folder first": "请先打开一个文件夹",
-  "Request failed: HTTP {0}": "请求失败：HTTP {0}"
+  "Request failed: HTTP {0}": "请求失败：HTTP {0}",
+  "Select Programmable Component": "选择可编程组件",
+  "{0} selected": "已选择 {0}",
+  "Startup failed: {0}": "启动失败：{0}",
+  "Ticket expired, please log in again": "ticket 已过期，需要重新登录",
+  "Fetching apps": "正在获取应用",
+  "Fetching programmable components": "正在获取可编程组件"
 }

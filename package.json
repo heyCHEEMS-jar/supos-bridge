@@ -43,6 +43,16 @@
         "command": "supos-bridge.login",
         "title": "%command.login.title%",
         "category": "SupOS Bridge"
+      },
+      {
+        "command": "supos-bridge.selectApp",
+        "title": "%command.selectApp.title%",
+        "category": "SupOS Bridge"
+      },
+      {
+        "command": "supos-bridge.selectComponent",
+        "title": "%command.selectComponent.title%",
+        "category": "SupOS Bridge"
       }
     ],
     "snippets": [
@@ -71,10 +81,30 @@
           "default": "",
           "description": "%config.baseURL.description%"
         },
+        "loginPagePath": {
+          "type": "string",
+          "default": "/login",
+          "description": "%config.loginPagePath.description%"
+        },
         "loginAPIPath": {
           "type": "string",
           "default": "/inter-api/auth/login",
           "description": "%config.loginAPIPath.description%"
+        },
+        "applicationMgrAPIPath": {
+          "type": "string",
+          "default": "/api/app/manager",
+          "description": "%config.applicationMgrAPIPath.description%"
+        },
+        "componentFolderAPIPath": {
+          "type": "string",
+          "default": "/api/app/resource/folder",
+          "description": "%config.componentFolderAPIPath.description%"
+        },
+        "componentFolderAPIParams": {
+          "type": "string",
+          "default": "?path=%2Fextensions&appId=",
+          "description": "%config.componentFolderAPIParams.description%"
         }
       }
     }

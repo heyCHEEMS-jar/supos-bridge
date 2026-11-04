@@ -31,8 +31,6 @@ export const registerGenerateTypes = (ctx: vscode.ExtensionContext) =>
     const wrote = await generateAll(ctx, folders)
     if (wrote === null) return
     if (wrote) await vscode.commands.executeCommand('typescript.restartTsServer')
-    const message = wrote
-      ? vscode.l10n.t('Wrote {0}', `${filePaths.TYPES_DIR}/${filePaths.TYPES_ENTRY}`)
-      : vscode.l10n.t('Type hints are up to date')
+    const message = wrote ? vscode.l10n.t('Wrote {0}', `${filePaths.TYPES_DIR}/${filePaths.TYPES_ENTRY}`) : vscode.l10n.t('Type hints are up to date')
     vscode.window.showInformationMessage(message)
   })
