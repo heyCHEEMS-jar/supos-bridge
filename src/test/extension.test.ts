@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 import * as os from 'node:os'
 import * as vscode from 'vscode'
-import { isSame, readIfExists, writeIfChanged } from '../utils/file'
+import { equalFile, readIfExists, writeIfChanged } from '../utils/file'
 
 describe('utils/file', () => {
   const dir = vscode.Uri.joinPath(vscode.Uri.file(os.tmpdir()), 'supos-bridge-test')
@@ -19,7 +19,7 @@ describe('utils/file', () => {
 
   it('目录不存在时新建再写入', async () => {
     assert.strictEqual(await writeIfChanged(dir, name, content), true)
-    assert.ok(isSame(await readIfExists(vscode.Uri.joinPath(dir, name)), content))
+    assert.ok(equalFile(await readIfExists(vscode.Uri.joinPath(dir, name)), content))
   })
 
   it('内容一致时不重写', async () => {

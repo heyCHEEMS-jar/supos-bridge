@@ -1,4 +1,14 @@
 {
-    "command.generateTypes.title": "Generate Types",
-    "command.restart.title": "Restart"
+  "extension.description": "A VS Code extension for supOS with remote programmable component pulling, automatic synchronization, API type hints, and code completion.",
+  "command.generateTypes.title": "Generate Types",
+  "command.restart.title": "Restart",
+  "command.selectApp.title": "Select App",
+  "command.selectComponent.title": "Select Programmable Component",
+  "command.login.title": "Log In",
+  "config.baseURL.description": "Base URL of SupOS system, like: https://XXX.XXX.XXX.XX:xxxx",
+  "config.loginPagePath.description": "Relative path of the SupOS login page",
+  "config.loginAPIPath.description": "Relative path of the SupOS login API",
+  "config.applicationMgrAPIPath.description": "Relative path of the SupOS application management API",
+  "config.componentFolderAPIPath.description": "Relative path of the SupOS programmable component folder API",
+  "config.componentFolderAPIParams.description": "Query parameter prefix of the SupOS programmable component folder API"
 }

@@ -1,4 +1,14 @@
 {
-    "command.generateTypes.title": "生成类型声明 (supos.d.ts)",
-    "command.restart.title": "重启扩展"
+  "extension.description": "为 supOS 提供的 VS Code 插件，支持远程可编程组件拉取、自动同步，API 类型提示、代码补全。",
+  "command.generateTypes.title": "加载类型提示",
+  "command.restart.title": "重启扩展",
+  "command.selectApp.title": "选择 App",
+  "command.selectComponent.title": "选择可编程组件",
+  "command.login.title": "登录",
+  "config.baseURL.description": "SupOS 系统的基础 URL，例如：https://XXX.XXX.XXX.XX:xxxx",
+  "config.loginPagePath.description": "SupOS 登录页面的相对路径",
+  "config.loginAPIPath.description": "SupOS 登录接口的相对路径",
+  "config.applicationMgrAPIPath.description": "SupOS 应用管理接口的相对路径",
+  "config.componentFolderAPIPath.description": "SupOS 可编程组件目录接口的相对路径",
+  "config.componentFolderAPIParams.description": "SupOS 可编程组件目录接口的查询参数前缀"
 }

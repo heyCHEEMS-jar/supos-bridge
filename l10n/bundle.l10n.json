@@ -1,0 +1,22 @@
+{
+  "Please configure {0} first": "Please configure {0} first",
+  "HTTP {0}": "HTTP {0}",
+  "No valid ticket was returned": "No valid ticket was returned",
+  "Could not start Chrome or Edge: {0}": "Could not start Chrome or Edge: {0}",
+  "Complete login in the opened browser": "Complete login in the opened browser",
+  "Browser login was cancelled or timed out": "Browser login was cancelled or timed out",
+  "SupOS login failed: {0}": "SupOS login failed: {0}",
+  "SupOS login succeeded": "SupOS login succeeded",
+  "Failed to write {0}: {1}": "Failed to write {0}: {1}",
+  "Wrote {0}": "Wrote {0}",
+  "Type hints are up to date": "Type hints are up to date",
+  "Type hints reloaded": "Type hints reloaded",
+  "Please open a folder first": "Please open a folder first",
+  "Request failed: HTTP {0}": "Request failed: HTTP {0}",
+  "Select Programmable Component": "Select Programmable Component",
+  "{0} selected": "{0} selected",
+  "Startup failed: {0}": "Startup failed: {0}",
+  "Ticket expired, please log in again": "Ticket expired, please log in again",
+  "Fetching apps": "Fetching apps",
+  "Fetching programmable components": "Fetching programmable components"
+}
