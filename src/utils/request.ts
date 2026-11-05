@@ -8,6 +8,7 @@ interface RequestOptions {
   headers?: Headers
   body?: any
   autoLogin?: boolean
+  responseType?: 'json' | 'text'
 }
 
 export class TicketExpiredError extends Error {}
@@ -15,7 +16,7 @@ export class TicketExpiredError extends Error {}
 const ctrls = new Set<AbortController>()
 
 export const request = async (ctx: vscode.ExtensionContext, options: RequestOptions) => {
-  const { url, method = 'GET', timeout = 15000, body = null, autoLogin = true } = options
+  const { url, method = 'GET', timeout = 15000, body = null, autoLogin = true, responseType = 'json' } = options
   const headers = new Headers(options.headers)
   const json = body !== null && (Object.getPrototypeOf(body) === Object.prototype || Array.isArray(body)) // 排除Date/RegExp等
   if (json && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json')
@@ -52,7 +53,7 @@ export const request = async (ctx: vscode.ExtensionContext, options: RequestOpti
     }
 
     if (!res.ok) throw new Error(vscode.l10n.t('Request failed: HTTP {0}', res.status))
-    return await res.json()
+    return responseType === 'text' ? await res.text() : await res.json()
   } finally {
     ctrls.delete(ctrl)
   }

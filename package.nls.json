@@ -4,11 +4,19 @@
   "command.restart.title": "Restart",
   "command.selectApp.title": "Select App",
   "command.selectComponent.title": "Select Programmable Component",
+  "command.pullComponent.title": "Pull Programmable Component",
+  "command.pushComponent.title": "Push Programmable Component",
   "command.login.title": "Log In",
   "config.baseURL.description": "Base URL of SupOS system, like: https://XXX.XXX.XXX.XX:xxxx",
   "config.loginPagePath.description": "Relative path of the SupOS login page",
   "config.loginAPIPath.description": "Relative path of the SupOS login API",
   "config.applicationMgrAPIPath.description": "Relative path of the SupOS application management API",
-  "config.componentFolderAPIPath.description": "Relative path of the SupOS programmable component folder API",
-  "config.componentFolderAPIParams.description": "Query parameter prefix of the SupOS programmable component folder API"
+  "config.uploadResourceAPIPath.description": "Relative path of the SupOS resource upload API",
+  "config.resourceAPIPath.description": "Relative path of SupOS application resources",
+  "config.programmableComponentMgrPath.description": "Management path of SupOS programmable components",
+  "config.componentSourceCodePath.description": "Source code path of SupOS programmable components",
+  "config.componentCompiledCodePath.description": "Compiled code path of SupOS programmable components",
+  "config.componentCodeFileName.description": "Code file name of SupOS programmable components",
+  "config.componentCodeLocalPath.description": "Local absolute path for component code. Clear it to ask again",
+  "config.componentFolderAPIPath.description": "Relative path of the SupOS programmable component folder API"
 }

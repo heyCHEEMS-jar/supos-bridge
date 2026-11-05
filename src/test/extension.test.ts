@@ -1,8 +1,10 @@
 import * as assert from 'assert'
 import * as os from 'node:os'
 import * as vscode from 'vscode'
+import { store } from '../store'
 import { equalFile, readIfExists, writeIfChanged } from '../utils/file'
 
+// 文件工具
 describe('utils/file', () => {
   const dir = vscode.Uri.joinPath(vscode.Uri.file(os.tmpdir()), 'supos-bridge-test')
   const name = 'index.d.ts'
@@ -38,6 +40,55 @@ describe('utils/file', () => {
   })
 })
 
+// 组件文件绑定
+describe('store/componentFiles', () => {
+  const app = { appId: 'App_test', name: 'Test' }
+  const comp = { folderName: 'Component_test', fullPath: '/extensions/Component_test', path: '/extensions' }
+  const uri = vscode.Uri.file('C:/components/Component_test.js')
+
+  const createContext = () => {
+    const values = new Map<string, unknown>()
+    const ctx = Object.create(null)
+    Object.defineProperty(ctx, 'workspaceState', {
+      value: {
+        keys: () => [...values.keys()],
+        get: (key: string, defaultValue: unknown) => values.get(key) ?? defaultValue,
+        update: async (key: string, value: unknown) => void values.set(key, value)
+      }
+    })
+    return { ctx, values }
+  }
+
+  beforeEach(() => store.compFiles.clear())
+  after(() => store.compFiles.clear())
+
+  it('绑定后写入内存和工作区状态', async () => {
+    const { ctx, values } = createContext()
+    await store.bindCompFile(ctx, app, comp, uri)
+
+    assert.strictEqual(store.getCompFile(app, comp)?.toString(), uri.toString())
+    assert.deepStrictEqual(values.get('componentFiles'), { 'App_test:Component_test': uri.toString() })
+  })
+
+  it('从工作区状态恢复绑定', () => {
+    const { ctx, values } = createContext()
+    values.set('componentFiles', { 'App_test:Component_test': uri.toString() })
+    store.restoreCompFiles(ctx)
+
+    assert.strictEqual(store.getCompFile(app, comp)?.toString(), uri.toString())
+  })
+
+  it('删除绑定后同步工作区状态', async () => {
+    const { ctx, values } = createContext()
+    await store.bindCompFile(ctx, app, comp, uri)
+    await store.removeCompFile(ctx, app, comp)
+
+    assert.strictEqual(store.getCompFile(app, comp), undefined)
+    assert.deepStrictEqual(values.get('componentFiles'), {})
+  })
+})
+
+// 扩展激活
 describe('extension', () => {
   it('可以被激活', async () => {
     const ext = vscode.extensions.getExtension('heyCHEEMS.supos-bridge')

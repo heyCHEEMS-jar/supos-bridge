@@ -2,7 +2,7 @@
   "name": "supos-bridge",
   "description": "%extension.description%",
   "displayName": "SupOS Bridge",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "heyCHEEMS",
   "publisher": "heyCHEEMS",
   "license": "ISC",
@@ -53,6 +53,16 @@
         "command": "supos-bridge.selectComponent",
         "title": "%command.selectComponent.title%",
         "category": "SupOS Bridge"
+      },
+      {
+        "command": "supos-bridge.pullComponent",
+        "title": "%command.pullComponent.title%",
+        "category": "SupOS Bridge"
+      },
+      {
+        "command": "supos-bridge.pushComponent",
+        "title": "%command.pushComponent.title%",
+        "category": "SupOS Bridge"
       }
     ],
     "snippets": [
@@ -96,22 +106,53 @@
           "default": "/api/app/manager",
           "description": "%config.applicationMgrAPIPath.description%"
         },
+        "uploadResourceAPIPath": {
+          "type": "string",
+          "default": "/api/app/manager/uploadResource",
+          "description": "%config.uploadResourceAPIPath.description%"
+        },
+        "resourceAPIPath": {
+          "type": "string",
+          "default": "/resource",
+          "description": "%config.resourceAPIPath.description%"
+        },
+        "programmableComponentMgrPath": {
+          "type": "string",
+          "default": "/extensions",
+          "description": "%config.programmableComponentMgrPath.description%"
+        },
+        "componentSourceCodePath": {
+          "type": "string",
+          "default": "/source",
+          "description": "%config.componentSourceCodePath.description%"
+        },
+        "componentCompiledCodePath": {
+          "type": "string",
+          "default": "/compiled",
+          "description": "%config.componentCompiledCodePath.description%"
+        },
+        "componentCodeFileName": {
+          "type": "string",
+          "default": "index.js",
+          "description": "%config.componentCodeFileName.description%"
+        },
+        "componentCodeLocalPath": {
+          "type": "string",
+          "default": "",
+          "scope": "window",
+          "description": "%config.componentCodeLocalPath.description%"
+        },
         "componentFolderAPIPath": {
           "type": "string",
           "default": "/api/app/resource/folder",
           "description": "%config.componentFolderAPIPath.description%"
-        },
-        "componentFolderAPIParams": {
-          "type": "string",
-          "default": "?path=%2Fextensions&appId=",
-          "description": "%config.componentFolderAPIParams.description%"
         }
       }
     }
   },
   "scripts": {
-    "vsce:package": "pnpm vsce package",
-    "vsce:publish": "pnpm vsce publish",
+    "vsce:package": "pnpm vsce package --no-dependencies",
+    "vsce:publish": "pnpm vsce publish --no-dependencies",
     "vscode:prepublish": "pnpm package",
     "compile": "pnpm gen && pnpm check-types && pnpm lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
@@ -147,6 +188,7 @@
     "serialize-javascript": "^7.0.6"
   },
   "dependencies": {
+    "@swc/core": "^1.16.21",
     "playwright-core": "^1.64.1"
   }
 }
