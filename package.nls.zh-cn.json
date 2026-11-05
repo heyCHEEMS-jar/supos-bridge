@@ -4,11 +4,19 @@
   "command.restart.title": "重启扩展",
   "command.selectApp.title": "选择 App",
   "command.selectComponent.title": "选择可编程组件",
+  "command.pullComponent.title": "拉取可编程组件",
+  "command.pushComponent.title": "推送可编程组件",
   "command.login.title": "登录",
   "config.baseURL.description": "SupOS 系统的基础 URL，例如：https://XXX.XXX.XXX.XX:xxxx",
   "config.loginPagePath.description": "SupOS 登录页面的相对路径",
   "config.loginAPIPath.description": "SupOS 登录接口的相对路径",
   "config.applicationMgrAPIPath.description": "SupOS 应用管理接口的相对路径",
-  "config.componentFolderAPIPath.description": "SupOS 可编程组件目录接口的相对路径",
-  "config.componentFolderAPIParams.description": "SupOS 可编程组件目录接口的查询参数前缀"
+  "config.uploadResourceAPIPath.description": "SupOS 资源上传接口的相对路径",
+  "config.resourceAPIPath.description": "SupOS 应用资源的相对路径",
+  "config.programmableComponentMgrPath.description": "SupOS 可编程组件管理路径",
+  "config.componentSourceCodePath.description": "SupOS 可编程组件代码源路径",
+  "config.componentCompiledCodePath.description": "SupOS 可编程组件已编译代码路径",
+  "config.componentCodeFileName.description": "SupOS 可编程组件代码文件名",
+  "config.componentCodeLocalPath.description": "组件代码本地绝对保存路径，清空后将重新询问",
+  "config.componentFolderAPIPath.description": "SupOS 可编程组件目录接口的相对路径"
 }
