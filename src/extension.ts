@@ -1,15 +1,26 @@
 import * as vscode from 'vscode'
-import { generateAll, registerGenerateTypes } from './commands/gen-types'
-import { registerLogin } from './commands/login'
-import { registerPullComponent } from './commands/pull-component'
-import { registerRestart } from './commands/restart'
-import { registerSelectApp } from './commands/select-app'
-import { registerSelectComponent } from './commands/select-component'
-import { registerPushComponent } from './commands/push-component'
 import { store } from './store'
 
 export const activate = async (ctx: vscode.ExtensionContext) => {
   try {
+    // 捕获导入错误
+    const [
+      { generateAll, registerGenerateTypes },
+      { registerLogin },
+      { registerPullComponent },
+      { registerRestart },
+      { registerSelectApp },
+      { registerSelectComponent },
+      { registerPushComponent }
+    ] = await Promise.all([
+      import('./commands/gen-types.js'),
+      import('./commands/login.js'),
+      import('./commands/pull-component.js'),
+      import('./commands/restart.js'),
+      import('./commands/select-app.js'),
+      import('./commands/select-component.js'),
+      import('./commands/push-component.js')
+    ])
     // compFiles持久存储恢复到当前store实例运行内存中
     store.restoreCompFiles(ctx)
     // 注册commands

@@ -33,7 +33,7 @@ async function main() {
     sourcesContent: false,
     platform: 'node',
     outfile: 'dist/extension.js',
-    external: ['vscode', 'playwright-core', '@swc/core'],
+    external: ['vscode', 'playwright-core', '@swc/wasm'],
     logLevel: 'silent',
     plugins: [
       /* add to the end of plugins array */
