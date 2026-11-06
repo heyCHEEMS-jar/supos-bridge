@@ -17,6 +17,12 @@
   "config.componentSourceCodePath.description": "supOS 可编程组件代码源路径",
   "config.componentCompiledCodePath.description": "supOS 可编程组件已编译代码路径",
   "config.componentCodeFileName.description": "supOS 可编程组件代码文件名",
+  "config.componentCodeLocalPath.title": "组件代码本地路径（仅当前项目生效）",
   "config.componentCodeLocalPath.description": "组件代码本地绝对保存路径，清空后将重新询问",
+  "config.componentCodeBackupPath.title": "组件代码备份路径（仅当前项目生效）",
+  "config.componentCodeBackupPath.description": "组件代码备份的本地绝对路径，留空时使用当前推送文件所在目录",
+  "config.autoPushComponentOnChange.description": "当前选中的组件代码变更时自动推送",
+  "config.componentFiles.title": "组件文件映射（仅当前项目生效）",
+  "config.componentFiles.description": "组件与本地文件绝对路径的持久化映射，键格式为 appId:folderName。",
   "config.componentFolderAPIPath.description": "supOS 可编程组件目录接口的相对路径"
 }

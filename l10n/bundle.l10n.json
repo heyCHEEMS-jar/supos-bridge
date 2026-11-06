@@ -32,5 +32,6 @@
   "Please pull the programmable component first": "Please pull the programmable component first",
   "Component file does not exist. Please pull it again": "Component file does not exist. Please pull it again",
   "Synchronizing component {0}": "Synchronizing component {0}",
-  "Synchronized component {0}": "Synchronized component {0}"
+  "Synchronized component {0}": "Synchronized component {0}",
+  "Component code backup path is invalid or does not exist: {0}": "Component code backup path is invalid or does not exist: {0}"
 }

@@ -20,7 +20,7 @@ const getSelectedComponent = () => {
   return { curApp, curComp }
 }
 
-export const getComponentFile = async (ctx: vscode.ExtensionContext, app: App, comp: Component) => {
+export const getCompFile = async (app: App, comp: Component) => {
   const uri = store.getCompFile(app, comp)
   if (!uri) {
     if (store.curApp?.appId === app.appId && store.curComp?.folderName === comp.folderName) store.curComp = undefined
@@ -29,13 +29,13 @@ export const getComponentFile = async (ctx: vscode.ExtensionContext, app: App, c
   }
   if (await readIfExists(uri)) return uri
 
-  await store.removeCompFile(ctx, app, comp)
+  await store.removeCompFile(app, comp)
   if (store.curApp?.appId === app.appId && store.curComp?.folderName === comp.folderName) store.curComp = undefined
   vscode.window.showWarningMessage(vscode.l10n.t('Component file does not exist. Please pull it again'))
   return undefined
 }
 
-export const fetchComponents = async (ctx: vscode.ExtensionContext, app: App) => {
+export const fetchComps = async (ctx: vscode.ExtensionContext, app: App) => {
   const config = vscode.workspace.getConfiguration()
   const baseURL = config.get<string>('baseURL')
   const apiPath = config.get<string>('componentFolderAPIPath')

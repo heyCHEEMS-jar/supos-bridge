@@ -1,6 +1,7 @@
 import * as assert from 'assert'
 import * as os from 'node:os'
 import * as vscode from 'vscode'
+import { watchSelectedComponent } from '../auto-push-component'
 import { store } from '../store'
 import { equalFile, readIfExists, writeIfChanged } from '../utils/file'
 
@@ -41,10 +42,18 @@ describe('utils/file', () => {
 })
 
 // 组件文件绑定
-describe('store/componentFiles', () => {
+describe('store/compFiles', () => {
+  const key = 'componentFiles'
   const app = { appId: 'App_test', name: 'Test' }
   const comp = { folderName: 'Component_test', fullPath: '/extensions/Component_test', path: '/extensions' }
   const uri = vscode.Uri.file('C:/components/Component_test.js')
+  const config = () => vscode.workspace.getConfiguration()
+
+  const clearConfig = async () => {
+    if (config().inspect<Record<string, string>>(key)?.workspaceValue !== undefined)
+      await config().update(key, undefined, vscode.ConfigurationTarget.Workspace)
+    await config().update(key, undefined, vscode.ConfigurationTarget.Global)
+  }
 
   const createContext = () => {
     const values = new Map<string, unknown>()
@@ -53,38 +62,69 @@ describe('store/componentFiles', () => {
       value: {
         keys: () => [...values.keys()],
         get: (key: string, defaultValue: unknown) => values.get(key) ?? defaultValue,
-        update: async (key: string, value: unknown) => void values.set(key, value)
+        update: async (key: string, value: unknown) => {
+          if (value === undefined) values.delete(key)
+          else values.set(key, value)
+        }
       }
     })
     return { ctx, values }
   }
 
-  beforeEach(() => store.compFiles.clear())
-  after(() => store.compFiles.clear())
+  beforeEach(clearConfig)
+  after(clearConfig)
 
-  it('绑定后写入内存和工作区状态', async () => {
-    const { ctx, values } = createContext()
-    await store.bindCompFile(ctx, app, comp, uri)
-
-    assert.strictEqual(store.getCompFile(app, comp)?.toString(), uri.toString())
-    assert.deepStrictEqual(values.get('componentFiles'), { 'App_test:Component_test': uri.toString() })
-  })
-
-  it('从工作区状态恢复绑定', () => {
-    const { ctx, values } = createContext()
-    values.set('componentFiles', { 'App_test:Component_test': uri.toString() })
-    store.restoreCompFiles(ctx)
+  it('绑定后写入工作区配置', async () => {
+    await store.bindCompFile(app, comp, uri)
 
     assert.strictEqual(store.getCompFile(app, comp)?.toString(), uri.toString())
+    assert.deepStrictEqual(config().inspect<Record<string, string>>(key)?.workspaceValue, {
+      'App_test:Component_test': uri.fsPath
+    })
   })
 
-  it('删除绑定后同步工作区状态', async () => {
-    const { ctx, values } = createContext()
-    await store.bindCompFile(ctx, app, comp, uri)
-    await store.removeCompFile(ctx, app, comp)
+  it('不读取全局配置中的绑定', async () => {
+    await config().update(key, { 'App_test:Component_test': uri.toString() }, vscode.ConfigurationTarget.Global)
 
     assert.strictEqual(store.getCompFile(app, comp), undefined)
-    assert.deepStrictEqual(values.get('componentFiles'), {})
+  })
+
+  it('迁移工作区状态中的旧绑定', async () => {
+    const { ctx, values } = createContext()
+    values.set(key, { 'App_test:Component_test': uri.toString() })
+    await store.restoreCompFiles(ctx)
+
+    assert.strictEqual(store.getCompFile(app, comp)?.toString(), uri.toString())
+    assert.strictEqual(values.has(key), false)
+  })
+
+  it('删除绑定后同步配置', async () => {
+    await store.bindCompFile(app, comp, uri)
+    await store.removeCompFile(app, comp)
+
+    assert.strictEqual(store.getCompFile(app, comp), undefined)
+    assert.deepStrictEqual(config().inspect<Record<string, string>>(key)?.workspaceValue, {})
+  })
+})
+
+// 自动推送组件
+ describe('autoPushComponent', () => {
+  const key = 'autoPushComponentOnChange'
+  const config = () => vscode.workspace.getConfiguration()
+
+  after(async () => config().update(key, undefined, vscode.ConfigurationTarget.Global))
+
+  it('根据配置决定是否注册监听', async () => {
+    const disabledCtx = Object.assign(Object.create(null), { subscriptions: [] })
+    await config().update(key, false, vscode.ConfigurationTarget.Global)
+    watchSelectedComponent(disabledCtx)
+    assert.strictEqual(disabledCtx.subscriptions.length, 0)
+
+    const enabledCtx = Object.assign(Object.create(null), { subscriptions: [] })
+    await config().update(key, true, vscode.ConfigurationTarget.Global)
+    watchSelectedComponent(enabledCtx)
+    assert.strictEqual(enabledCtx.subscriptions.length, 1)
+    enabledCtx.subscriptions[0].dispose()
   })
 })
 

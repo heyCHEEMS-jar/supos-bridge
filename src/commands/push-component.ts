@@ -2,7 +2,8 @@ import * as vscode from 'vscode'
 import { commands } from '../constants/commands'
 import { store } from '../store'
 import { compileComponent } from '../utils/compile'
-import { getComponentFile, uploadCompiledCode, uploadSourceCode } from '../utils/component'
+import { fetchSourceCode, getCompFile, uploadCompiledCode, uploadSourceCode } from '../utils/component'
+import { backupCompFile } from '../utils/file'
 import { runWithProgress } from '../utils/progress'
 
 export const registerPushComponent = (ctx: vscode.ExtensionContext) =>
@@ -13,7 +14,7 @@ export const registerPushComponent = (ctx: vscode.ExtensionContext) =>
     const { curApp, curComp } = store
     if (!curComp) return
 
-    const uri = await getComponentFile(ctx, curApp, curComp)
+    const uri = await getCompFile(curApp, curComp)
     if (!uri) return
 
     const document = await vscode.workspace.openTextDocument(uri)
@@ -23,6 +24,7 @@ export const registerPushComponent = (ctx: vscode.ExtensionContext) =>
 
     await runWithProgress(vscode.l10n.t('Synchronizing component {0}', curComp.folderName), async () => {
       const compiled = await compileComponent(code, document.fileName, document.languageId)
+      await backupCompFile(uri, await fetchSourceCode(ctx, curApp, curComp))
       await uploadSourceCode(ctx, new File([code], fileName, { type: 'text/javascript' }))
       await uploadCompiledCode(ctx, new File([compiled], fileName, { type: 'text/javascript' }))
     })

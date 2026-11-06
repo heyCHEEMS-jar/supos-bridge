@@ -17,6 +17,12 @@
   "config.componentSourceCodePath.description": "Source code path of supOS programmable components",
   "config.componentCompiledCodePath.description": "Compiled code path of supOS programmable components",
   "config.componentCodeFileName.description": "Code file name of supOS programmable components",
+  "config.componentCodeLocalPath.title": "Component Code Local Path (Current project only)",
   "config.componentCodeLocalPath.description": "Local absolute path for component code. Clear it to ask again",
+  "config.componentCodeBackupPath.title": "Component Code Backup Path (Current project only)",
+  "config.componentCodeBackupPath.description": "Local absolute path for component code backups. Leave empty to use the pushed file's directory",
+  "config.autoPushComponentOnChange.description": "Automatically push the selected component when its code changes",
+  "config.componentFiles.title": "Component Files (Current project only)",
+  "config.componentFiles.description": "Persistent component-to-file absolute path mappings. Keys use appId:folderName.",
   "config.componentFolderAPIPath.description": "Relative path of the supOS programmable component folder API"
 }
