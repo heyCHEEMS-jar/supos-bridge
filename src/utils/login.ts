@@ -65,5 +65,3 @@ export const login = async (ctx: vscode.ExtensionContext) => {
     }
   )
 }
-
-export const ensureLogin = async (ctx: vscode.ExtensionContext) => (await ctx.secrets.get('ticket')) ?? login(ctx)
