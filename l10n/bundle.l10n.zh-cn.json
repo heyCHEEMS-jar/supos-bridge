@@ -32,5 +32,6 @@
   "Please pull the programmable component first": "请先拉取可编程组件",
   "Component file does not exist. Please pull it again": "组件文件不存在，请重新拉取",
   "Synchronizing component {0}": "正在同步组件 {0}",
-  "Synchronized component {0}": "已同步组件 {0}"
+  "Synchronized component {0}": "已同步组件 {0}",
+  "Component code backup path is invalid or does not exist: {0}": "组件代码备份路径错误或不存在：{0}"
 }

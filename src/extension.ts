@@ -1,4 +1,5 @@
 import * as vscode from 'vscode'
+import { watchSelectedComponent } from './auto-push-component'
 import { store } from './store'
 
 export const activate = async (ctx: vscode.ExtensionContext) => {
@@ -27,8 +28,12 @@ export const activate = async (ctx: vscode.ExtensionContext) => {
         import('./commands/select-component.js'),
         import('./commands/push-component.js')
       ])
-    store.restoreCompFiles(ctx)
+    await store.restoreCompFiles(ctx)
     ctx.subscriptions.push(
+      // 监听“自动同步组件”选项，即时开启/清理监听器
+      vscode.workspace.onDidChangeConfiguration((event) => {
+        if (event.affectsConfiguration('autoPushComponentOnChange') && store.curComp) watchSelectedComponent(ctx)
+      }),
       registerLogin(ctx),
       registerSelectApp(ctx),
       registerSelectComponent(ctx),

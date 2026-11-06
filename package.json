@@ -2,7 +2,7 @@
   "name": "supos-devtools",
   "description": "%extension.description%",
   "displayName": "supOS DevTools",
-  "version": "0.0.42",
+  "version": "0.0.5",
   "author": "heyCHEEMS",
   "publisher": "heyCHEEMS",
   "license": "ISC",
@@ -144,7 +144,30 @@
           "type": "string",
           "default": "",
           "scope": "window",
+          "title": "%config.componentCodeLocalPath.title%",
           "description": "%config.componentCodeLocalPath.description%"
+        },
+        "componentCodeBackupPath": {
+          "type": "string",
+          "default": "",
+          "scope": "window",
+          "title": "%config.componentCodeBackupPath.title%",
+          "description": "%config.componentCodeBackupPath.description%"
+        },
+        "autoPushComponentOnChange": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.autoPushComponentOnChange.description%"
+        },
+        "componentFiles": {
+          "type": "object",
+          "scope": "window",
+          "default": {},
+          "title": "%config.componentFiles.title%",
+          "description": "%config.componentFiles.description%",
+          "additionalProperties": {
+            "type": "string"
+          }
         },
         "componentFolderAPIPath": {
           "type": "string",
