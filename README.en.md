@@ -1,4 +1,4 @@
-# SupOS Bridge
+# supOS DevTools
 
 [简体中文](README.md) | [English](README.en.md)
 
@@ -17,7 +17,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## Installation
 
-- Search for `SupOS Bridge` in the VS Code Extensions panel.
+- Search for `supOS DevTools` in the VS Code Extensions panel.
 - Requires VS Code 1.137.0+. Supports Windows, macOS, and Linux on x64 / arm64, including glibc / musl on Linux.
 
 ## Usage

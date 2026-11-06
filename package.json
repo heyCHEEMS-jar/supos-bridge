@@ -1,15 +1,18 @@
 {
-  "name": "supos-bridge",
+  "name": "supos-devtools",
   "description": "%extension.description%",
-  "displayName": "SupOS Bridge",
+  "displayName": "supOS DevTools",
   "version": "0.0.4",
   "author": "heyCHEEMS",
   "publisher": "heyCHEEMS",
   "license": "ISC",
   "keywords": [
     "supos",
-    "supos-bridge",
+    "supos-devtools",
     "可编程组件",
+    "组件同步",
+    "类型提示",
+    "typescript",
     "snippets"
   ],
   "engines": {
@@ -30,39 +33,39 @@
   "contributes": {
     "commands": [
       {
-        "command": "supos-bridge.generateTypes",
+        "command": "supos-devtools.generateTypes",
         "title": "%command.generateTypes.title%",
-        "category": "SupOS Bridge"
+        "category": "supOS DevTools"
       },
       {
-        "command": "supos-bridge.restart",
+        "command": "supos-devtools.restart",
         "title": "%command.restart.title%",
-        "category": "SupOS Bridge"
+        "category": "supOS DevTools"
       },
       {
-        "command": "supos-bridge.login",
+        "command": "supos-devtools.login",
         "title": "%command.login.title%",
-        "category": "SupOS Bridge"
+        "category": "supOS DevTools"
       },
       {
-        "command": "supos-bridge.selectApp",
+        "command": "supos-devtools.selectApp",
         "title": "%command.selectApp.title%",
-        "category": "SupOS Bridge"
+        "category": "supOS DevTools"
       },
       {
-        "command": "supos-bridge.selectComponent",
+        "command": "supos-devtools.selectComponent",
         "title": "%command.selectComponent.title%",
-        "category": "SupOS Bridge"
+        "category": "supOS DevTools"
       },
       {
-        "command": "supos-bridge.pullComponent",
+        "command": "supos-devtools.pullComponent",
         "title": "%command.pullComponent.title%",
-        "category": "SupOS Bridge"
+        "category": "supOS DevTools"
       },
       {
-        "command": "supos-bridge.pushComponent",
+        "command": "supos-devtools.pushComponent",
         "title": "%command.pushComponent.title%",
-        "category": "SupOS Bridge"
+        "category": "supOS DevTools"
       }
     ],
     "snippets": [
@@ -84,7 +87,7 @@
       }
     ],
     "configuration": {
-      "title": "SupOS Bridge",
+      "title": "supOS DevTools",
       "properties": {
         "baseURL": {
           "type": "string",

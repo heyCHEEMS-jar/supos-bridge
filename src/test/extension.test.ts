@@ -6,7 +6,7 @@ import { equalFile, readIfExists, writeIfChanged } from '../utils/file'
 
 // 文件工具
 describe('utils/file', () => {
-  const dir = vscode.Uri.joinPath(vscode.Uri.file(os.tmpdir()), 'supos-bridge-test')
+  const dir = vscode.Uri.joinPath(vscode.Uri.file(os.tmpdir()), 'supos-devtools-test')
   const name = 'index.d.ts'
   const content = new TextEncoder().encode('declare const scriptUtil: any')
 
@@ -91,7 +91,7 @@ describe('store/componentFiles', () => {
 // 扩展激活
 describe('extension', () => {
   it('可以被激活', async () => {
-    const ext = vscode.extensions.getExtension('heyCHEEMS.supos-bridge')
+    const ext = vscode.extensions.getExtension('heyCHEEMS.supos-devtools')
     assert.ok(ext, '找不到扩展，检查 package.json 里的 publisher 和 name')
     await ext.activate()
     assert.strictEqual(ext.isActive, true)
