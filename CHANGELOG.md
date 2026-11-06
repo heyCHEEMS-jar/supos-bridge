@@ -8,6 +8,7 @@
 
 ## 0.0.4 - 2026-11-06
 
+- 插件名称由 `supOS Bridge` 更改为 `supOS DevTools`，包名与命令前缀统一为 `supos-devtools`，同步更新关键词
 - 使用 `vsce-pnpm` 打包，支持 pnpm 依赖收集
 - 编译器由 `@swc/core` 切换为 `@swc/wasm`，保留 JS / TS / JSX / TSX 编译选项，使用同一份 WASM 支持跨平台
 - 移除 SWC 多平台原生依赖及专用安装配置，减少打包依赖并避免原生绑定缺失导致命令不可用
@@ -41,7 +42,7 @@
 
 ## 0.0.21 - 2026-09-30
 
-- 原插件名 `SupOS Snippets` 更改为 `SupOS Bridge`
+- 原插件名 `supOS Snippets` 更改为 `supOS Bridge`
 
 ## 0.0.2 - 2026-09-29
 

@@ -9,6 +9,6 @@ export const registerLogin = (ctx: vscode.ExtensionContext) =>
     } catch (e) {
       if (e instanceof vscode.CancellationError) return
       const message = e instanceof Error ? e.message : String(e)
-      vscode.window.showErrorMessage(vscode.l10n.t('SupOS login failed: {0}', message))
+      vscode.window.showErrorMessage(vscode.l10n.t('supOS login failed: {0}', message))
     }
   })

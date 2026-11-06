@@ -1,4 +1,4 @@
-# SupOS Bridge
+# supOS DevTools
 
 [简体中文](README.md) | [English](README.en.md)
 
@@ -17,7 +17,7 @@
 
 ## 安装
 
-- 在 VS Code 扩展面板搜索 `SupOS Bridge`。
+- 在 VS Code 扩展面板搜索 `supOS DevTools`。
 - 要求 VS Code 1.137.0+，支持 Windows、macOS、Linux 的 x64 / arm64（Linux 包含 glibc / musl）。
 
 ## 使用
