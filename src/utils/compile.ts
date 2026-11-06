@@ -1,4 +1,4 @@
-import { transform } from '@swc/core'
+import { transform } from '@swc/wasm'
 
 export const compileComponent = async (code: string, fileName: string, languageId: string) => {
   const typescript = languageId.startsWith('typescript')
